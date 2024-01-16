@@ -2,7 +2,8 @@ import React from 'react'
 import Header from '../../components/header';
 import Intro from './intro';
 import About from './About';
-import Experiences from '../Experiences';
+import Experiences from './Experiences';
+import Projects from './Projects';
 
 function Home() {
   return (
@@ -12,6 +13,7 @@ function Home() {
       <Intro />
       <About />
       <Experiences />
+      <Projects />
       </div>
     </div>
   )
