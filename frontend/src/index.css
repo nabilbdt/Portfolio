@@ -22,3 +22,9 @@
   ::-webkit-scrollbar-thumb:hover {
     background: #9BBEC8; 
   }
+  i{
+    cursor: pointer;
+  }
+  i:hover{
+    color:white;
+  }
