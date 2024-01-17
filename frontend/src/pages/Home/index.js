@@ -8,6 +8,7 @@ import Courses from './Courses';
 import Contact from './contact';
 import Footer from './Footer';
 import LeftSider from './LeftSider';
+import Loader from '../../components/Loader';
 
 function Home() {
   return (
