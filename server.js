@@ -1,11 +1,14 @@
 const express = require('express');
-const dbConfig = require('./config/dbConfig');
-const { addListener } = require('nodemon');
-require('dotenv').config()
 const app = express();
-app.use(express.json());
-const port = process.env.PORT 
+require('dotenv').config();
+const dbConfig = require('./config/dbConfig');
 
+
+const portfolioroute = require('./routes/portfolioRoute')
+app.use(express.json());
+app.use("/api/portfolio", portfolioroute);
+
+const port = process.env.PORT || 5000;
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });

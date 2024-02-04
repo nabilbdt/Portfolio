@@ -1,9 +1,13 @@
 import React, { useState } from 'react'
 import SectionTitle from '../../components/SectionTitle'
 import { courses } from '../../data/courses.data';
+import { useSelector } from 'react-redux';
 
 
 function Courses() {
+    const { portfolioData } = useSelector((state) => state.root);
+    const {courses} = portfolioData;
+    const {title,image,description,link} = courses;
  const [selectedItemIndex, setSelectedItemIndex] = useState(0);
 
   return (
