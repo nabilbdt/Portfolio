@@ -1,8 +1,8 @@
 const router = require('express').Router();
 const {Intro, About , Project , Contact , Experience , Course} = require('../models/portfolioModel');
 
-
-router.get('/get-portfolio-data', async(req,res)=>{
+// get all data
+router.get('/get-portfolio-data', async(req,res) => {
     try {
         const intros = await Intro.find();
         const abouts = await About.find();
@@ -23,6 +23,54 @@ router.get('/get-portfolio-data', async(req,res)=>{
         res.status(500).send(error);
     }
 })
+//update intro data
+router.post('/update-intro', async(req,res) => {
+    try {
+        const intro = await Intro.findOneAndUpdate(
+            {_id: req.body._id},
+            req.body,
+            {new : true}
+        );
+        res.status(200).send({
+            data : intro,
+            success : true,
+            message : 'Intro Updates Successfully'
+        });
+    } catch (error) {
+        res.status(500).send(error);
+    }
+});
 
+//update about data
+router.post('/update-about', async(req,res) => {
+    try {
+        const about = await About.findOneAndUpdate(
+            {_id: req.body._id},
+            req.body,
+            {new : true}
+        );
+        res.status(200).send({
+            data : about,
+            success : true,
+            message : 'About Updates Successfully'
+        });
+    } catch (error) {
+        res.status(500).send(error);
+    }
+});
 
+//add experience
+router.post("/add-experience",async (req,res) =>{
+    try {
+        const experience = new Experience(req.body);
+        await  experience.save();
+        res.status(200).send({
+            data : experience,
+            success : true,
+            message : "Experience Added Successfully"
+        });
+    } catch (error) {
+        res.status(500).send(error);
+    }
+    });
 module.exports = router;

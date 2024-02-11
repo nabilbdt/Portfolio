@@ -1,28 +1,39 @@
 import React from 'react'
 import Header from '../../components/header'
+import AdminIntro from './adminIntro';
+import AdminAbout from './adminAbout';
 import { Tabs } from 'antd';
-//import AdminIntro from './AdminIntro';
-//import AdminAbout from './AdminAbout';
-const { TabPane } = Tabs;
+import { useSelector } from 'react-redux';
+import Experiences from './Experiences';
+
+const items = [
+  {
+    key: '1',
+    label: 'Intro',
+    children: <AdminIntro />
+  },
+  {
+    key: '2',
+    label: 'About',
+    children: <AdminAbout/>
+  },
+  {
+    key: '3',
+    label: 'Experiences',
+    children: <Experiences/>
+  },
+];
 function Admin() {
+  const {portfolioData} = useSelector((state) => state.root)
   return (
-    <>
+    <div>
       <Header />
-      <div className='mt-5'>
-        
+      {portfolioData && <div className='mt-5 p-5'>
+      <Tabs defaultActiveKey="1" items={items} />
       </div>
-    </>
+      }
+      
+    </div>
   )
 }
-
 export default Admin;
-/*
-<Tabs defaultActiveKey="1" onChange={onChange}>
-          <TabPane tab="Intro" key="1" >
-            <AdminIntro/>
-          </TabPane>
-          <TabPane tab="About" key="2">
-            <AdminAbout/>
-          </TabPane>
-        </Tabs>
-*/

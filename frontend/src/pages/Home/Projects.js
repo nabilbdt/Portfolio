@@ -32,7 +32,7 @@ function Projects() {
                     })}
                 </div>
                 <div className='flex items-center justify-center gap-10 sm:flex-col'>
-                    <img src={projects[selectedItemIndex].image} alt='project image' className='h-52 w-80'/>
+                    <img src={projects[selectedItemIndex].image} alt='project image' className='h-120 w-120'/>
                 </div>
                 <div className='flex flex-col gap-5'>
                     <h1 className='text-secondary text-2xl'>{projects[selectedItemIndex].title}</h1>
