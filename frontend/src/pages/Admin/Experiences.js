@@ -42,8 +42,8 @@ function Experiences() {
     const onDelete = async (item) =>{
         try {
             dispatch(ShowLoading());
-            const response = await axios.post("api/portfolio/delete-experience",{
-                _id: item._id,
+            const response = await axios.delete("api/portfolio/delete-experience",{
+                data: {_id: item._id}
             });
             dispatch(HideLoading());
             if (response.data.success) {
@@ -58,7 +58,9 @@ function Experiences() {
             message.error(error.message);
         }};
 
-    return (
+
+        
+  return (
         <div>
             <div className='flex justify-end'>
                 <button className='px-5 py-2 bg-primary text-white' onClick={() => {
