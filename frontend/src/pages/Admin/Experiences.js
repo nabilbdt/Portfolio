@@ -15,54 +15,90 @@ function Experiences() {
     const onFinish = async (values) => {
         try {
             dispatch(ShowLoading());
-            const response = await axios.post('api/portfolio/add-experience',
-              values
-            );
-            dispatch(HideLoading());
-            if (response.data.success){
-              message.success(response.data.message);
-              setshowAddEditModal(false);
-              dispatch(HideLoading());
-              dispatch(ReloadData(true));
-            }else{
-              message.error(response.data.message);
-              dispatch(HideLoading());
+            let response;
+            if (selectedItemForEdit) {
+                response = await axios.post('api/portfolio/update-experience', {
+                    ...values,
+                    _id: selectedItemForEdit._id,
+                });
+            } else {
+                response = await axios.post('api/portfolio/add-experience', values);
             }
-          } catch (error) {
+            dispatch(HideLoading());
+            if (response.data.success) {
+                message.success(response.data.message);
+                setshowAddEditModal(false);
+                setselectedItemForEdit(null)
+                dispatch(HideLoading());
+                dispatch(ReloadData(true));
+            } else {
+                dispatch(HideLoading());
+                message.error(response.data.message);
+            }
+        } catch (error) {
             message.error(error.message)
-          }
-    }
+        }
+    };
+    const onDelete = async (item) =>{
+        try {
+            dispatch(ShowLoading());
+            const response = await axios.post("api/portfolio/delete-experience",{
+                _id: item._id,
+            });
+            dispatch(HideLoading());
+            if (response.data.success) {
+                message.success(response.data.message);
+                dispatch(HideLoading());
+                dispatch(ReloadData(true));
+            } else{
+                message.error(response.data.message);
+            }
+        } catch (error) {
+            dispatch(HideLoading());
+            message.error(error.message);
+        }};
 
     return (
         <div>
             <div className='flex justify-end'>
-                        <button className='px-5 py-2 bg-primary text-white' onClick={() => {
-                            setselectedItemForEdit(null);
-                            setshowAddEditModal(true);
-                        }}
-                        >Add Experience</button>
+                <button className='px-5 py-2 bg-primary text-white' onClick={() => {
+                    setselectedItemForEdit(null);
+                    setshowAddEditModal(true);
+                }}
+                >Add Experience</button>
             </div>
             <div className='grid grid-cols-4 gap-5'>
                 {experiences.map((experience) => {
                     return (<div className='shadow border p-5 border-gray-400 flex flex-col'>
-                        <h1 className='text-primary text-xl font-bold'>{experience.period}</h1><br/>
-                        <h1>Company: {experience.company}</h1><br/>
-                        <h1>Role: {experience.title}</h1><br/>
-                        <h1>{experience.description}</h1><br/>
+                        <h1 className='text-primary text-xl font-bold'>{experience.period}</h1><br />
+                        <h1>Company: {experience.company}</h1><br />
+                        <h1>Role: {experience.title}</h1><br />
+                        <h1>{experience.description}</h1><br />
                         <div className='flex justify-end gap-5 mt-5'>
-                            <button className='px-5 py-2 bg-red-500 text-white '>Delete</button>
-                            <button className='px-5 py-2 bg-primary text-white '>Edit</button>
+                            <button className='px-5 py-2 bg-red-500 text-white '
+                            onClick={() => {
+                                onDelete(experience);
+                            }}
+                            >Delete</button>
+                            <button className='px-5 py-2 bg-primary text-white '
+                                onClick={() => {
+                                    setselectedItemForEdit(experience);
+                                    setshowAddEditModal(true);
+                                }}
+                            >Edit</button>
                         </div>
                     </div>)
                 })}
             </div>
-            <Modal 
+            <Modal
                 visible={showAddEditModal}
                 title={selectedItemForEdit ? "Edit Experience" : "Add Experience"}
                 footer={null}
                 onCancel={() => setshowAddEditModal(false)}
             >
-                <Form layout='vertical'onFinish={onFinish}>
+                <Form layout='vertical' onFinish={onFinish}
+                    initialValues={selectedItemForEdit}
+                >
                     <Form.Item name='period' label='Period'>
                         <input placeholder='Period' />
                     </Form.Item>
@@ -90,3 +126,6 @@ function Experiences() {
 }
 
 export default Experiences
+
+
+
