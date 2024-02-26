@@ -1,5 +1,5 @@
 import { Form, Modal, message } from 'antd';
-import React from 'react'
+import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { HideLoading, ReloadData, ShowLoading } from '../../redux/rootSlice';
 import axios from 'axios';
@@ -10,7 +10,7 @@ function Experiences() {
     const { experiences } = portfolioData;
     const [showAddEditModal, setshowAddEditModal] = React.useState(false);
     const [selectedItemForEdit, setselectedItemForEdit] = React.useState(null);
-
+    const [type , setType] = useState('add');
 
     const onFinish = async (values) => {
         try {
@@ -59,7 +59,7 @@ function Experiences() {
         }};
 
 
-        
+
   return (
         <div>
             <div className='flex justify-end'>
@@ -69,13 +69,13 @@ function Experiences() {
                 }}
                 >Add Experience</button>
             </div>
-            <div className='grid grid-cols-4 gap-5'>
+            <div className='grid grid-cols-4 gap-5 mt-5'>
                 {experiences.map((experience) => {
                     return (<div className='shadow border p-5 border-gray-400 flex flex-col'>
                         <h1 className='text-primary text-xl font-bold'>{experience.period}</h1><br />
-                        <h1>Company: {experience.company}</h1><br />
+                        <h1>Company: {experience.company}</h1><br/>
                         <h1>Role: {experience.title}</h1><br />
-                        <h1>{experience.description}</h1><br />
+                        <h1>{experience.description}</h1>
                         <div className='flex justify-end gap-5 mt-5'>
                             <button className='px-5 py-2 bg-red-500 text-white '
                             onClick={() => {
@@ -86,17 +86,23 @@ function Experiences() {
                                 onClick={() => {
                                     setselectedItemForEdit(experience);
                                     setshowAddEditModal(true);
+                                    setType('edit')
                                 }}
                             >Edit</button>
                         </div>
                     </div>)
                 })}
             </div>
-            <Modal
+            {
+                (selectedItemForEdit || type === "add") &&
+                <Modal
                 visible={showAddEditModal}
                 title={selectedItemForEdit ? "Edit Experience" : "Add Experience"}
                 footer={null}
-                onCancel={() => setshowAddEditModal(false)}
+                onCancel={() => {
+                    setshowAddEditModal(false)
+                    setselectedItemForEdit(null);
+                }}
             >
                 <Form layout='vertical' onFinish={onFinish}
                     initialValues={selectedItemForEdit}
@@ -111,11 +117,12 @@ function Experiences() {
                         <input placeholder='Role' />
                     </Form.Item>
                     <Form.Item name='description' label='Description'>
-                        <input placeholder='Description' />
+                        <textarea placeholder='Description' />
                     </Form.Item>
                     <div className='flex justify-end gap-5 mt-5'>
                         <button className='px-5 py-2 border-primary text-primary' onClick={() => {
                             setshowAddEditModal(false)
+                            setselectedItemForEdit(null);
                         }}
                         >Cancel</button>
                         <button className='px-5 py-2 bg-primary text-white '>{selectedItemForEdit ? "Update" : "Add"}</button>
@@ -123,6 +130,8 @@ function Experiences() {
                 </Form>
 
             </Modal>
+            }
+            
         </div>
     )
 }

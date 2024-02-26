@@ -33,9 +33,7 @@ function Experiences() {
                     <h1 className='text-secondary text-2xl'>{experiences[selectedItemIndex].title}</h1>
                     <h1 className='text-tertiary text-xl'>{experiences[selectedItemIndex].company}</h1>
                     <p className='text-white '>
-                        lorem23svfghdhthdhdhhfhkytkyukykllyluulyuluyuouyuouluoluu
-                        ulyuloiomoibdlgiggfgheoirugpfhgpieurhpgihupirehiuhgipuhrg
-                        gdpiufghesiughdiuhiehiehgiodfhipiupifsripgpihfdihihfduigi
+                        {experiences[selectedItemIndex].description}
                         </p>
                 </div>
             </div>
