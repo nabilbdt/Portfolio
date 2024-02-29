@@ -131,6 +131,6 @@ module.exports = {
     About: mongoose.model("abouts", aboutSchema),
     Experience: mongoose.model("experiences", experienceSchema),
     Project: mongoose.model("projects", projectsSchema),
-    Course: mongoose.model("courses", introSchema),
+    Course: mongoose.model("courses", coursesSchema),
     Contact: mongoose.model("contacts", contactSchema),
 };

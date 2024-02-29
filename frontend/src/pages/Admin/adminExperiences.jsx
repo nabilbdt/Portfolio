@@ -4,27 +4,25 @@ import { useSelector, useDispatch } from 'react-redux'
 import { HideLoading, ReloadData, ShowLoading } from '../../redux/rootSlice';
 import axios from 'axios';
 
-function AdminProjects() {
+function Experiences() {
     const dispatch = useDispatch();
     const { portfolioData } = useSelector((state) => state.root);
-    const { projects } = portfolioData;
+    const { experiences } = portfolioData;
     const [showAddEditModal, setshowAddEditModal] = React.useState(false);
     const [selectedItemForEdit, setselectedItemForEdit] = React.useState(null);
     const [type , setType] = useState('add');
 
     const onFinish = async (values) => {
         try {
-            const temptechnologies = values.technologies.split(",");
-            values.technologies = temptechnologies;
             dispatch(ShowLoading());
             let response;
             if (selectedItemForEdit) {
-                response = await axios.post('api/portfolio/update-project', {
+                response = await axios.post('api/portfolio/update-experience', {
                     ...values,
                     _id: selectedItemForEdit._id,
                 });
             } else {
-                response = await axios.post('api/portfolio/add-project', values);
+                response = await axios.post('api/portfolio/add-experience', values);
             }
             dispatch(HideLoading());
             if (response.data.success) {
@@ -44,7 +42,7 @@ function AdminProjects() {
     const onDelete = async (item) =>{
         try {
             dispatch(ShowLoading());
-            const response = await axios.delete("api/portfolio/delete-project",{
+            const response = await axios.delete("api/portfolio/delete-experience",{
                 data: {_id: item._id}
             });
             dispatch(HideLoading());
@@ -70,25 +68,24 @@ function AdminProjects() {
                     setshowAddEditModal(true);
                     setType("add")
                 }}
-                >Add Project</button>
+                >Add Experience</button>
             </div>
             <div className='grid grid-cols-4 gap-5 mt-5'>
-                {projects.map((project) => {
+                {experiences.map((experience) => {
                     return (<div className='shadow border p-5 border-gray-400 flex flex-col'>
-                        <h1 className='text-primary text-xl font-bold'>{project.title}</h1><br/>
-                        <img src={project.image} alt='' className='h-60 w-80'/>
-                        <h1>Technologies: {project.technologies?.join(" , ")} </h1><br/>
-                        <h1>Link: {project.link} </h1><br/>
-                        <h1 className='w-10'>Description: {project.description}</h1><br/>
+                        <h1 className='text-primary text-xl font-bold'>{experience.period}</h1>
+                        <h1>Company: {experience.company}</h1>
+                        <h1>Role: {experience.title}</h1>
+                        <p>Description: {experience.description}</p>
                         <div className='flex justify-end gap-5 mt-5'>
                             <button className='px-5 py-2 bg-red-500 text-white '
                             onClick={() => {
-                                onDelete(project);
+                                onDelete(experience);
                             }}
                             >Delete</button>
                             <button className='px-5 py-2 bg-primary text-white '
                                 onClick={() => {
-                                    setselectedItemForEdit(project);
+                                    setselectedItemForEdit(experience);
                                     setshowAddEditModal(true);
                                     setType('edit')
                                 }}
@@ -109,25 +106,19 @@ function AdminProjects() {
                 }}
             >
                 <Form layout='vertical' onFinish={onFinish}
-                    initialValues={{
-                        ...selectedItemForEdit,
-                        technologies : selectedItemForEdit?.technologies.join(" , ")
-                    } || {}}
+                    initialValues={selectedItemForEdit || {}}
                 >
-                    <Form.Item name='title' label='Title'>
-                        <input placeholder='Title' />
+                    <Form.Item name='period' label='Period'>
+                        <input placeholder='Period' />
                     </Form.Item>
-                    <Form.Item name='image' label='Image URL'>
-                        <input placeholder='Image' />
+                    <Form.Item name='company' label='Company'>
+                        <input placeholder='Company' />
+                    </Form.Item>
+                    <Form.Item name='title' label='Role'>
+                        <input placeholder='Role' />
                     </Form.Item>
                     <Form.Item name='description' label='Description'>
                         <textarea placeholder='Description' />
-                    </Form.Item>
-                    <Form.Item name='technologies' label='Technologies'>
-                        <input placeholder='Technologies' />
-                    </Form.Item>
-                    <Form.Item name='link' label='Link'>
-                        <input placeholder='Link' />
                     </Form.Item>
                     <div className='flex justify-end gap-5 mt-5'>
                         <button className='px-5 py-2 border-primary text-primary' onClick={() => {
@@ -146,7 +137,7 @@ function AdminProjects() {
     )
 }
 
-export default AdminProjects
+export default Experiences
 
 
 

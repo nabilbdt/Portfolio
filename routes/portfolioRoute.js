@@ -140,7 +140,7 @@ router.post('/update-project', async (req, res) => {
 //delete project
 router.delete('/delete-project',async (req, res) => {
     try {
-        const project = await project.findOneAndDelete({ _id: req.body._id});
+        const project = await Project.findOneAndDelete({ _id: req.body._id});
         res.status(200).send({
             data: project,
             success: true,
@@ -150,6 +150,54 @@ router.delete('/delete-project',async (req, res) => {
         res.status(500).send(error);
     }
 })
+
+//add Course
+router.post("/add-course", async (req, res) => {
+    try {
+        const course = new Course(req.body);
+        await course.save();
+        res.status(200).send({
+            data: course,
+            success: true,
+            message: "Course Added Successfully"
+        });
+    } catch (error) {
+        res.status(500).send(error);
+    }
+});
+
+//update Course data
+router.post('/update-course', async (req, res) => {
+    try {
+        const course = await Course.findOneAndUpdate(
+            { _id: req.body._id },
+            req.body,
+            { new: true }
+        );
+        res.status(200).send({
+            data: course,
+            success: true,
+            message: 'Course Updated Successfully'
+        });
+    } catch (error) {
+        res.status(500).send(error);
+    }
+});
+//delete project
+router.delete('/delete-course',async (req, res) => {
+    try {
+        const course = await Course.findOneAndDelete({ _id: req.body._id});
+        res.status(200).send({
+            data: course,
+            success: true,
+            message: 'Course Deleted Successfully'
+        })
+    } catch (error) {
+        res.status(500).send(error);
+    }
+})
+
+
 
 
 module.exports = router;

@@ -6,6 +6,7 @@ import { Tabs } from 'antd';
 import { useSelector } from 'react-redux';
 import Experiences from './adminExperiences';
 import AdminProjects from './adminProjects';
+import AdminCourses from './adminCourses';
 
 const items = [
   {
@@ -27,6 +28,11 @@ const items = [
     key: '4',
     label: 'Experiences',
     children: <Experiences/>
+  },
+  {
+    key: '5',
+    label: 'Courses',
+    children: <AdminCourses/>
   },
 ];
 function Admin() {
