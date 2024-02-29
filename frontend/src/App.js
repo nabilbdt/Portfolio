@@ -9,6 +9,7 @@ import store from './redux/store';
 import Admin from './pages/Admin';
 
 function App() {
+
   const { loading, portfolioData, reloadData } = useSelector((state) => state.root);
   const dispatch = useDispatch();
   const getPortfolioData = async () => {

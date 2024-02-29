@@ -4,7 +4,8 @@ import AdminIntro from './adminIntro';
 import AdminAbout from './adminAbout';
 import { Tabs } from 'antd';
 import { useSelector } from 'react-redux';
-import Experiences from './Experiences';
+import Experiences from './adminExperiences';
+import AdminProjects from './adminProjects';
 
 const items = [
   {
@@ -19,6 +20,11 @@ const items = [
   },
   {
     key: '3',
+    label: 'Projects',
+    children: <AdminProjects/>
+  },
+  {
+    key: '4',
     label: 'Experiences',
     children: <Experiences/>
   },
