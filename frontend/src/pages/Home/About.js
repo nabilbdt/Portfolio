@@ -8,7 +8,7 @@ function About() {
   const {about} = portfolioData;
   const {skills,lottiURL,description1,description2} = about;
     return (
-        <div>
+        <div className='bg-quaternary p-10  rounded-xl mb-28'>
             <SectionTitle title="About me" />
             <div className='flex w-full items-center sm:flex-col'>
                 <div className='h-[50vh] w-1/2 sm:w-full'>

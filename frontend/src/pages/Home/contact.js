@@ -7,7 +7,7 @@ function Contact() {
     const {contact} = portfolioData;
     const {name,age,email,mobile,adress} = contact;
     return (
-        <div>
+        <div className='bg-quaternary p-10  rounded-xl mb-28'>
             <SectionTitle title="Let's work together" />
             <div className='flex sm:flex-col items-center justify-between'>
                 <div className='flex flex-col gap-1'>

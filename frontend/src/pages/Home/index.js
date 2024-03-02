@@ -18,8 +18,8 @@ function Home() {
     <div >
       <Header />
       {portfolioData && (
-        <div className='bg-primary px-40 sm:px-5'>
-          <Intro />
+        <div className='bg-primary px-20 sm:px-5'>
+          <Intro/>
           <About />
           <Experiences />
           <Projects />

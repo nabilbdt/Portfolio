@@ -183,7 +183,7 @@ router.post('/update-course', async (req, res) => {
         res.status(500).send(error);
     }
 });
-//delete project
+//delete Course
 router.delete('/delete-course',async (req, res) => {
     try {
         const course = await Course.findOneAndDelete({ _id: req.body._id});
