@@ -11,6 +11,7 @@ function AdminCourses() {
     const [showAddEditModal, setshowAddEditModal] = React.useState(false);
     const [selectedItemForEdit, setselectedItemForEdit] = React.useState(null);
     const [type , setType] = useState('add');
+    const [form] = Form.useForm();
 
     const onFinish = async (values) => {
         try {
@@ -31,6 +32,7 @@ function AdminCourses() {
                 setselectedItemForEdit(null)
                 dispatch(HideLoading());
                 dispatch(ReloadData(true));
+                form.resetFields();
             } else {
                 dispatch(HideLoading());
                 message.error(response.data.message);
@@ -105,10 +107,12 @@ function AdminCourses() {
                     setselectedItemForEdit(null);
                 }}
             >
-                <Form layout='vertical' onFinish={onFinish}
-                    initialValues={{
-                        ...selectedItemForEdit,
-                    } || {}}
+                <Form 
+                  form={form}
+                  layout='vertical' onFinish={onFinish}
+                  initialValues={{
+                    ...selectedItemForEdit,
+                  } || {}}
                 >
                     <Form.Item name='title' label='Title'>
                         <input placeholder='Title' />

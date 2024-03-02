@@ -11,6 +11,7 @@ function AdminProjects() {
     const [showAddEditModal, setshowAddEditModal] = React.useState(false);
     const [selectedItemForEdit, setselectedItemForEdit] = React.useState(null);
     const [type , setType] = useState('add');
+    const [form] = Form.useForm();
 
     const onFinish = async (values) => {
         try {
@@ -33,6 +34,7 @@ function AdminProjects() {
                 setselectedItemForEdit(null)
                 dispatch(HideLoading());
                 dispatch(ReloadData(true));
+                form.resetFields();
             } else {
                 dispatch(HideLoading());
                 message.error(response.data.message);
@@ -108,8 +110,11 @@ function AdminProjects() {
                     setselectedItemForEdit(null);
                 }}
             >
-                <Form layout='vertical' onFinish={onFinish}
-                    initialValues={{
+                <Form 
+                form={form}
+                layout='vertical' 
+                onFinish={onFinish}
+                initialValues={{
                         ...selectedItemForEdit,
                         technologies : selectedItemForEdit?.technologies.join(" , ")
                     } || {}}
