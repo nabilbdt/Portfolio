@@ -40,6 +40,7 @@ router.post('/update-intro', async (req, res) => {
         res.status(500).send(error);
     }
 });
+
 //update about data
 router.post('/update-about', async (req, res) => {
     try {
@@ -196,6 +197,25 @@ router.delete('/delete-course',async (req, res) => {
         res.status(500).send(error);
     }
 })
+
+
+//update Contact data
+router.post('/update-contact', async (req, res) => {
+    try {
+        const contact = await Contact.findOneAndUpdate(
+            { _id: req.body._id },
+            req.body,
+            { new: true }
+        );
+        res.status(200).send({
+            data: contact,
+            success: true,
+            message: 'Contact Updated Successfully'
+        });
+    } catch (error) {
+        res.status(500).send(error);
+    }
+});
 
 
 

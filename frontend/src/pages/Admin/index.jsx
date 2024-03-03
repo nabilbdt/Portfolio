@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import Experiences from './adminExperiences';
 import AdminProjects from './adminProjects';
 import AdminCourses from './adminCourses';
+import AdminContact from './adminContact';
 
 const items = [
   {
@@ -34,13 +35,19 @@ const items = [
     label: 'Courses',
     children: <AdminCourses/>
   },
+  {
+    key: '6',
+    label: 'Contact',
+    children: <AdminContact/>
+  },
 ];
 function Admin() {
   const {portfolioData} = useSelector((state) => state.root)
   return (
     <div>
       <Header />
-      {portfolioData && <div className='mt-5 p-5'>
+      <h1 className='text-2xl text-primary px-5 py-2'>Portfolio Manager</h1>
+      {portfolioData && <div className='p-5'>
       <Tabs defaultActiveKey="1" items={items} />
       </div>
       }
