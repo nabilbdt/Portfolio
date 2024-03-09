@@ -48,7 +48,7 @@ function Admin() {
       <Header />
       <h1 className='text-2xl text-primary px-5 py-2'>Portfolio Manager</h1>
       {portfolioData && <div className='p-5'>
-      <Tabs defaultActiveKey="1" items={items} />
+      <Tabs  defaultActiveKey="1" items={items} />
       </div>
       }
       

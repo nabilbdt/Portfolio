@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { HideLoading, ReloadData, SetPortfolioData, ShowLoading } from './redux/rootSlice';
 import store from './redux/store';
 import Admin from './pages/Admin';
+import Login from './pages/Admin/login';
 
 function App() {
 
@@ -39,6 +40,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/admin" element={<Admin />} />
+        <Route path="/admin-login" element={<Login />} />
       </Routes>
     </BrowserRouter>
   );
