@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Header from '../../components/header'
 import AdminIntro from './adminIntro';
 import AdminAbout from './adminAbout';
@@ -41,8 +41,18 @@ const items = [
     children: <AdminContact/>
   },
 ];
+
+
+
 function Admin() {
   const {portfolioData} = useSelector((state) => state.root)
+
+  useEffect(()=>{
+    if(!localStorage.getItem("token")){
+      window.location.href = '/admin-login';
+    }
+    },[])  
+    
   return (
     <div>
       <Header />

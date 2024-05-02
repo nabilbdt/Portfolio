@@ -16,7 +16,7 @@ function Login() {
       dispatch(HideLoading());
       if(response.data.success){
         message.success(response.data.message);
-        localStorage.setItem('token',response.data.success);
+        localStorage.setItem('token',JSON.stringify(response.data));
         window.location.href="/admin";
       }else{
         message.error(response.data.message);
