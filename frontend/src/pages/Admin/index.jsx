@@ -56,12 +56,16 @@ function Admin() {
   return (
     <div>
       <Header />
-      <div className='flex gap-10 items-center px-5 py-2'>
-        <div>
+      <div className='flex gap-10 items-center px-5 py-2 justify-between'>
+        <div className='flex gap-10 items-center px-5'>
           <h1 className='text-2xl text-primary px-5 py-2'>Portfolio Manager</h1>
           <div className='w-60 h-[1px] bg-gray-500'></div>
         </div>
-
+        <h1 className="underline text-primary text-xl cursor-pointer"
+          onClick={() => {
+            localStorage.removeItem('token');
+            window.location.href = "/admin-login";
+          }}>Logout</h1>
       </div>
 
       {portfolioData && <div className='p-5'>
