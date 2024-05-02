@@ -221,7 +221,11 @@ router.post('/update-contact', async (req, res) => {
 // admin login
 router.post("/admin-login",async(req,res)=>{
     try {
-        const user = await User.findOne({username : req.body.username,password : req.body.password});
+        const user = await User.findOne({
+            username : req.body.username,
+            password : req.body.password
+        });
+        user.password = "";
         if(user){
             res.status(200).send({
                 data:user,

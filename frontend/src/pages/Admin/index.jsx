@@ -18,50 +18,57 @@ const items = [
   {
     key: '2',
     label: 'About',
-    children: <AdminAbout/>
+    children: <AdminAbout />
   },
   {
     key: '3',
     label: 'Projects',
-    children: <AdminProjects/>
+    children: <AdminProjects />
   },
   {
     key: '4',
     label: 'Experiences',
-    children: <Experiences/>
+    children: <Experiences />
   },
   {
     key: '5',
     label: 'Courses',
-    children: <AdminCourses/>
+    children: <AdminCourses />
   },
   {
     key: '6',
     label: 'Contact',
-    children: <AdminContact/>
+    children: <AdminContact />
   },
 ];
 
 
 
 function Admin() {
-  const {portfolioData} = useSelector((state) => state.root)
+  const { portfolioData } = useSelector((state) => state.root)
 
-  useEffect(()=>{
-    if(!localStorage.getItem("token")){
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
       window.location.href = '/admin-login';
     }
-    },[])  
-    
+  }, [])
+
   return (
     <div>
       <Header />
-      <h1 className='text-2xl text-primary px-5 py-2'>Portfolio Manager</h1>
+      <div className='flex gap-10 items-center px-5 py-2'>
+        <div>
+          <h1 className='text-2xl text-primary px-5 py-2'>Portfolio Manager</h1>
+          <div className='w-60 h-[1px] bg-gray-500'></div>
+        </div>
+
+      </div>
+
       {portfolioData && <div className='p-5'>
-      <Tabs  defaultActiveKey="1" items={items} />
+        <Tabs defaultActiveKey="1" items={items} />
       </div>
       }
-      
+
     </div>
   )
 }
